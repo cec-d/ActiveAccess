@@ -37,6 +37,9 @@ Add the following environment variables to the .env file:
 MONGODB_URI=mongodb://localhost:27017/
 SECRET_KEY=test1234
 
+Add Test Classes to your database using the insertClasses.js file provided
+node insertClasses.js
+
 Start the server:
 node server.js
 
