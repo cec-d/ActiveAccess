@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
@@ -6,23 +6,39 @@ export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [authToken, setAuthToken] = useState('');
+  const [userRole, setUserRole] = useState('');
 
-  const login = (username, token) => {
+  useEffect(() => {
+    // On component mount, check if the user's auth information is stored in local storage
+    const storedToken = localStorage.getItem('authToken');
+    const storedUsername = localStorage.getItem('username');
+    const storedRole = localStorage.getItem('userRole');
+
+    if (storedToken && storedUsername && storedRole) {
+      login(storedUsername, storedToken, storedRole);
+    }
+  }, []);
+
+  const login = (username, token, role) => {
     setIsLoggedIn(true);
-    console.log(username);
     setUsername(username);
     setAuthToken(token);
-    console.log('Auth Token:', token);
+    setUserRole(role);
+    localStorage.setItem('username', username);
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('userRole', role);
   };
   
   const logout = () => {
     setIsLoggedIn(false);
     setUsername('');
-    setAuthToken(''); // Clear username on logout
+    setAuthToken('');
+    localStorage.removeItem('username');
+    localStorage.removeItem('authToken');
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, username, authToken, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, username, authToken, userRole, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

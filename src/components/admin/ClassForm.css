@@ -1,0 +1,48 @@
+/* ClassForm.css */
+.form-container {
+    max-width: 600px;
+    margin: 60px auto; /* Add top margin to account for the navbar */
+    padding: 20px;
+    border: 1px solid #007acc; /* Ocean blue border */
+    border-radius: 10px;
+    background-color: #f0f8ff; /* Light blue background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container h2 {
+    color: #007acc; /* Ocean blue heading */
+    text-align: center;
+  }
+  
+  .form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #007acc; /* Ocean blue border */
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .form-container button {
+    background-color: #007acc; /* Ocean blue */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1em;
+  }
+  
+  .form-container button:hover {
+    background-color: #005b99; /* Darker blue on hover */
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  

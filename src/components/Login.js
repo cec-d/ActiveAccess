@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
+import './AuthPages.css';
 
 function Login() {
   const { login } = useAuth();
@@ -18,10 +20,11 @@ function Login() {
         credentials: 'include',
         body: JSON.stringify({ username, password }),
       });
+      
       const data = await response.json();
       if (response.ok) {
         // Login successful
-        login(data.username, data.authToken);
+        login(data.username, data.authToken, data.role);
         navigate('/dashboard');
       } else {
         // Login failed
@@ -34,19 +37,24 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <label>
-        Username:
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <Navbar /> {/* Add Navbar component */}
+      <div className="auth-container">
+        <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <label>
+            Username:
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </label>
+          <label>
+            Password:
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </>
   );
 }
 

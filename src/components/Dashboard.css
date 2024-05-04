@@ -1,0 +1,57 @@
+/* Dashboard.css */
+.dashboard-container {
+    max-width: 1200px;
+    margin: auto; /* Center horizontally */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .booked-classes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Add space between grid items */
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+  }
+  
+  .booked-class-item {
+    background-color: #ffffff;
+    border: 1px solid #007acc; /* Ocean blue border */
+    border-radius: 10px;
+    padding: 15px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 180px; /* Set minimum height for uniform sizing */
+  }
+  
+  .booked-class-item h2 {
+    color: #007acc; /* Ocean blue heading */
+    margin-bottom: 10px;
+  }
+  
+  .booked-class-item p {
+    color: #333; /* Standard text color */
+    margin: 5px 0;
+    word-wrap: break-word; /* Break long words to fit within the container */
+  }
+  
+  .button-remove {
+    align-self: flex-start; /* Align the button to the left */
+    background-color: #ff4d4d; /* Red color for remove button */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: auto; /* Push button to the bottom */
+  }
+  
+  .button-remove:hover {
+    background-color: #cc0000; /* Darker red on hover */
+  }
+  

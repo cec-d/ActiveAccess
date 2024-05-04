@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
         if (user.bookedClasses.includes(classId)) {
             return res.status(400).json({ message: 'Class already booked' });
         }
-  
       // Add classId to user's bookedClasses array
       user.bookedClasses.push(classId);
       await user.save();
@@ -79,7 +78,6 @@ router.delete('/:classId', async (req, res) => {
   
       // Find the user by username
       const user = await User.findOne({ username });
-      console.log('user', user);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -90,10 +88,7 @@ router.delete('/:classId', async (req, res) => {
 
       // Convert classId to ObjectId
       const classObjectId = new ObjectId(classId);
-      console.log(typeof classId);
-      console.log(classObjectId);
       user.bookedClasses = user.bookedClasses.filter(id => !id.equals(classObjectId));
-      console.log('Booked Array', user.bookedClasses);
       await user.save();
   
       res.status(200).json({ message: 'Class removed successfully', bookedClasses: user.bookedClasses });

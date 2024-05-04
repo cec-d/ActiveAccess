@@ -9,13 +9,15 @@ const router = express.Router();
 // User registration
 router.post('/register', async (req, res) => {
   try {
-    // Hash password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    
+    const { username, password, role } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new user
     const user = new User({
-      username: req.body.username,
-      password: hashedPassword
+      username,
+      password: hashedPassword,
+      role: role === 'admin' ? 'admin' : 'user'
     });
 
     // Save user in the database
@@ -33,8 +35,8 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (user && await bcrypt.compare(req.body.password, user.password)) {
       // Passwords match
-      const authToken = jwt.sign({ username: user.username }, process.env.JWT_SECRET);
-      res.json({ message: "Login successful", username: user.username, authToken });
+      const authToken = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET);
+      res.json({ message: "Login successful", username: user.username, authToken, role: user.role });
     } else {
       // Authentication failed
       res.status(400).json({ message: "Invalid credentials" });

@@ -1,30 +1,31 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { useAuth } from './context/AuthContext';
- // Import the Navbar component
+import './HomePage.css';
 
 const HomePage = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div>
+    <div className="home-container">
       <Navbar />
-      <div style={{ padding: 20 }}>
+      <div>
+        <h1>Welcome to the ActiveAccess App</h1>
         {isLoggedIn ? (
-          <h1>Welcome to the ActiveAccess App</h1>
+          <p>Explore our classes and manage your schedule.</p>
         ) : (
-          <>
-            <h1>Welcome to the Fitness Class Booking App</h1>
-            <p>Please log in or register to continue.</p>
-            <div>
-              <a href="/login">Login</a>
-              <span> | </span>
-              <a href="/register">Register</a>
-            </div>
-          </>
+          <p>Please log in or register to continue.</p>
+        )}
+        {!isLoggedIn && (
+          <div className="nav-links">
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </div>
         )}
       </div>
     </div>
   );
 };
+
 export default HomePage;
